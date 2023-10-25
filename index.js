@@ -27,7 +27,12 @@ function renderMovies() {
 		let html = ``
 		for (let movie of movies) {
 			html += `
-                <li>${movie.Title}</li>
+                <li>
+                    ${movie.Title} 
+                    <div class="add-btn align-right" data-item-id=${movie.id}>
+                        <p data-item-id=${movie.id}>Watchlist</p>
+                    </div>
+                </li>
             `
 		}
 		movieList.innerHTML = html
