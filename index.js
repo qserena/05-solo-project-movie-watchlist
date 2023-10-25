@@ -32,22 +32,23 @@ form.addEventListener('submit', function (e) {
 			.then((data) => {
 				const ids = data.Search.map((movie) => movie.imdbID)
 				console.log(ids)
-				renderMovies(ids)
+				const list = document.getElementById('movie-list')
+				renderMovies(list, ids)
 			})
 	}
 })
 
-export function renderMovies(movieIds) {
+export function renderMovies(list, movieIds) {
 	for (let id of movieIds) {
 		fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)
 			.then((res) => res.json())
 			.then((data) => {
-				renderMovie(data, true)
+				renderMovie(list, data, true)
 			})
 	}
 }
 
-function renderMovie(movie, isSearch) {
+function renderMovie(list, movie, isSearch) {
 	const special = isSearch
 		? `
         <div class="add-btn align-right">
@@ -68,5 +69,5 @@ function renderMovie(movie, isSearch) {
 		`
                 </li>`
 
-	document.getElementById('movie-list').innerHTML += html
+	list.innerHTML += html
 }
