@@ -18,7 +18,6 @@ document.addEventListener('click', function (e) {
 
 function handleAddClick(imdbId) {
 	let watchListIds = getWatchListIds() || []
-	console.log(watchListIds)
 	watchListIds.push(imdbId)
 	localStorage.setItem('watch-list-ids', JSON.stringify(watchListIds))
 }
@@ -32,26 +31,31 @@ form.addEventListener('submit', function (e) {
 		)
 			.then((res) => res.json())
 			.then((data) => {
-				searchedMovieList = data.Search
-				renderMovies()
+				getAllMovieData(data.Search)
 			})
 	}
 })
 
-function renderMovies() {
-	if (searchedMovieList.length > 0) {
-		let html = ``
-		for (let movie of searchedMovieList) {
-			html += `
+function getAllMovieData(movies) {
+	searchedMovieList = []
+	for (let movie of movies) {
+		fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}`)
+			.then((res) => res.json())
+			.then((data) => {
+				renderMovie(data)
+			})
+	}
+}
+
+function renderMovie(movie) {
+	const html = `
                 <li>
                     <p>${movie.Title}</p>
                     <div class="add-btn align-right">
                         <img class="icon" src="./img/add-icon-large.png" data-imdb-id="${movie.imdbID}"/>
                         <p data-imdb-id="${movie.imdbID}">Watchlist</p>
                     </div>
-                </li>
-            `
-		}
-		movieList.innerHTML = html
-	}
+                </li>`
+
+	document.getElementById('movie-list').innerHTML += html
 }
