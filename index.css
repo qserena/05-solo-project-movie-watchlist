@@ -11,3 +11,18 @@ header {
 	background-size: cover;
 	background-color: grey;
 }
+
+.icon {
+	width: 20px;
+	height: 20px;
+}
+
+.add-btn {
+	display: flex;
+	align-items: center;
+}
+
+.add-btn:hover,
+.add-btn:focus {
+	cursor: pointer;
+}
