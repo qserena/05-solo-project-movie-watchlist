@@ -2,12 +2,13 @@ const apiKey = `7575777d`
 // const moviesList = document.getElementById('movies-list')
 
 document.addEventListener('click', function (e) {
-	if (e.target.dataset.imdbId) {
-		handleRemoveClick(e.target.dataset.imdbId)
+	if (e.target.dataset.removeImdbId) {
+		handleRemoveClick(e.target.dataset.removeImdbId)
 	}
 })
 
 function handleRemoveClick(imdbId) {
+	document.getElementById('movies-list').innerHTML = ``
 	const watchListIds = getWatchListIds()
 	const newWatchListIds = watchListIds.filter((i) => i !== imdbId)
 	localStorage.setItem('watch-list-ids', JSON.stringify(newWatchListIds))
@@ -47,8 +48,8 @@ function renderMovie(movie) {
 						<p>${movie.Runtime}</p>
 						<p>${movie.Genre}</p>
 						<div class="remove-btn">
-							<img class="icon" src="./img/remove-icon.png" data-imdb-id="${movie.imdbID}"/>
-							<p data-imdb-id="${movie.imdbID}">Remove</p>
+							<img class="icon" src="./img/remove-icon.png" data-remove-imdb-id="${movie.imdbID}"/>
+							<p data-remove-imdb-id="${movie.imdbID}">Remove</p>
 						</div>
 					</div>
 					<p class="plot">${movie.Plot}</p>

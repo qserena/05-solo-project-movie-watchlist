@@ -22,6 +22,8 @@ form.addEventListener('submit', function (e) {
 	console.log('mannen')
 	e.preventDefault()
 
+	document.getElementById('movie-list').innerHTML = ``
+
 	if (searchInput.value) {
 		fetch(
 			`https://www.omdbapi.com/?apikey=${apiKey}&s=${searchInput.value}`
