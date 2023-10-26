@@ -14,22 +14,24 @@
 	</head>
 	<body>
 		<header>
-			<h1>Find your film</h1>
-			<a href="./watchlist.html">My Watchlist</a>
+			<div class="container">
+				<h1>Find your film</h1>
+				<a href="./watchlist.html">My Watchlist</a>
+			</div>
 		</header>
-		<section class="search">
-			<form class="form" id="form" action="submit">
-				<input
-					type="text"
-					name="search-input"
-					id="search-input"
-					placeholder="Search for a movie"
-				/>
-				<button class="search-btn" type="submit">Search</button>
-			</form>
-		</section>
 		<section class="results">
-			<ul class="movie-list" id="movie-list"></ul>
+			<div class="container">
+				<form class="form" id="form" action="submit">
+					<input
+						type="text"
+						name="search-input"
+						id="search-input"
+						placeholder="Search for a movie"
+					/>
+					<button class="search-btn" type="submit">Search</button>
+				</form>
+				<ul class="movie-list" id="movie-list"></ul>
+			</div>
 		</section>
 		<script src="index.js" type="module"></script>
 	</body>

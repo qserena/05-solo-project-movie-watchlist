@@ -1,5 +1,3 @@
-import { renderMovies } from './index.js'
-
 const moviesList = document.getElementById('movies-list')
 
 document.addEventListener('click', function (e) {

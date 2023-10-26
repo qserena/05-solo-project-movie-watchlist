@@ -1,3 +1,5 @@
+//import { renderMovies2 } from './common.js'
+
 const apiKey = `7575777d`
 const searchInput = document.getElementById('search-input')
 const searchBtn = document.getElementById('search-btn')
@@ -32,23 +34,22 @@ form.addEventListener('submit', function (e) {
 			.then((data) => {
 				const ids = data.Search.map((movie) => movie.imdbID)
 				console.log(ids)
-				const list = document.getElementById('movie-list')
-				renderMovies(list, ids)
+				renderMovies(ids, true)
 			})
 	}
 })
 
-export function renderMovies(list, movieIds) {
+export function renderMovies(movieIds, isSearch) {
 	for (let id of movieIds) {
 		fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)
 			.then((res) => res.json())
 			.then((data) => {
-				renderMovie(list, data, true)
+				renderMovie(data, isSearch)
 			})
 	}
 }
 
-function renderMovie(list, movie, isSearch) {
+function renderMovie(movie, isSearch) {
 	const special = isSearch
 		? `
         <div class="add-btn align-right">
@@ -60,14 +61,31 @@ function renderMovie(list, movie, isSearch) {
         <p data-imdb-id="${movie.imdbID}">Remove</p>
     </div>
         `
-
-	const html =
+	console.log(movie)
+	const html = `
+		<li>
+			<div class="movie-item">
+				<img class="movie-poster" src="${movie.Poster}" alt="Poster of movie ${movie.Title}">
+				<div class="movie-info">
+					<div class="movie-first-row">
+						<h2>${movie.Title}</h2>
+						<img class="star-icon" src="./img/star.png" alt="A star icon">
+						<p>${movie.imdbRating}</p>
+					</div>
+					<div class="movie-second-row">
+						<p>${movie.Runtime}</p>
+						<p>${movie.Genre}</p>
+						<div class="add-btn align-right">
+							<img class="icon" src="./img/add-icon-large.png" data-imdb-id="${movie.imdbID}"/>
+							<p data-imdb-id="${movie.imdbID}">Watchlist</p>
+						</div>
+					</div>
+					<p class="plot">${movie.Plot}</p>
+				</div>
+			</div>
+			<hr/>
+		</li>
 		`
-                <li>
-                    <p>${movie.Title}</p>` +
-		special +
-		`
-                </li>`
 
-	list.innerHTML += html
+	document.getElementById('movie-list').innerHTML += html
 }
