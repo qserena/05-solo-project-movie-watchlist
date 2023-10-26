@@ -1,4 +1,5 @@
-const moviesList = document.getElementById('movies-list')
+const apiKey = `7575777d`
+// const moviesList = document.getElementById('movies-list')
 
 document.addEventListener('click', function (e) {
 	if (e.target.dataset.imdbId) {
@@ -7,9 +8,9 @@ document.addEventListener('click', function (e) {
 })
 
 function handleRemoveClick(imdbId) {
-	let watchListIds = getWatchListIds()
-	watchListIds = watchListIds.filter((i) => i !== imdbId)
-	localStorage.setItem('watch-list-ids', JSON.stringify(watchListIds))
+	const watchListIds = getWatchListIds()
+	const newWatchListIds = watchListIds.filter((i) => i !== imdbId)
+	localStorage.setItem('watch-list-ids', JSON.stringify(newWatchListIds))
 	renderMovies()
 }
 
@@ -20,20 +21,43 @@ function getWatchListIds() {
 function renderMovies() {
 	const movieIds = getWatchListIds()
 
-	let html = ''
 	for (let id of movieIds) {
-		html += `
-            <li>
-            <p>${id}</p>
-            <div class="remove-btn align-right">
-                <img class="icon" src="./img/remove-icon-large.png" data-imdb-id="${id}"/>
-                <p data-imdb-id="${id}">Remove</p>
-            </div>
-            </li>
-        `
+		fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)
+			.then((res) => res.json())
+			.then((data) => {
+				renderMovie(data)
+			})
 	}
+}
 
-	moviesList.innerHTML = html
+function renderMovie(movie) {
+	const html = `
+		<li>
+			<div class="movie-item">
+				<img class="movie-poster" src="${movie.Poster}" alt="Poster of movie ${movie.Title}">
+				<div class="movie-info">
+					<div class="movie-first-row">
+						<h2>${movie.Title}</h2>
+						<div class="rating">
+							<img class="star-icon" src="./img/star.png" alt="A star icon">
+							<p>${movie.imdbRating}</p>
+						</div>
+					</div>
+					<div class="movie-second-row">
+						<p>${movie.Runtime}</p>
+						<p>${movie.Genre}</p>
+						<div class="remove-btn">
+							<img class="icon" src="./img/remove-icon.png" data-imdb-id="${movie.imdbID}"/>
+							<p data-imdb-id="${movie.imdbID}">Remove</p>
+						</div>
+					</div>
+					<p class="plot">${movie.Plot}</p>
+				</div>
+			</div>
+			<hr/>
+		</li>
+        `
+	document.getElementById('movies-list').innerHTML += html
 }
 
 renderMovies()

@@ -1,10 +1,6 @@
-//import { renderMovies2 } from './common.js'
-
 const apiKey = `7575777d`
 const searchInput = document.getElementById('search-input')
-const searchBtn = document.getElementById('search-btn')
 const form = document.getElementById('form')
-const movieList = document.getElementById('movie-list')
 
 function getWatchListIds() {
 	return JSON.parse(localStorage.getItem('watch-list-ids'))
@@ -34,34 +30,22 @@ form.addEventListener('submit', function (e) {
 			.then((data) => {
 				const ids = data.Search.map((movie) => movie.imdbID)
 				console.log(ids)
-				renderMovies(ids, true)
+				renderMovies(ids)
 			})
 	}
 })
 
-export function renderMovies(movieIds, isSearch) {
+export function renderMovies(movieIds) {
 	for (let id of movieIds) {
 		fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)
 			.then((res) => res.json())
 			.then((data) => {
-				renderMovie(data, isSearch)
+				renderMovie(data)
 			})
 	}
 }
 
-function renderMovie(movie, isSearch) {
-	const special = isSearch
-		? `
-        <div class="add-btn align-right">
-            <img class="icon" src="./img/add-icon-large.png" data-imdb-id="${movie.imdbID}"/>
-            <p data-imdb-id="${movie.imdbID}">Watchlist</p>
-        </div>`
-		: `<div class="remove-btn align-right">
-        <img class="icon" src="./img/remove-icon-large.png" data-imdb-id="${movie.imdbID}"/>
-        <p data-imdb-id="${movie.imdbID}">Remove</p>
-    </div>
-        `
-	console.log(movie)
+function renderMovie(movie) {
 	const html = `
 		<li>
 			<div class="movie-item">
@@ -69,14 +53,16 @@ function renderMovie(movie, isSearch) {
 				<div class="movie-info">
 					<div class="movie-first-row">
 						<h2>${movie.Title}</h2>
-						<img class="star-icon" src="./img/star.png" alt="A star icon">
-						<p>${movie.imdbRating}</p>
+						<div class="rating">
+							<img class="star-icon" src="./img/star.png" alt="A star icon">
+							<p>${movie.imdbRating}</p>
+						</div>
 					</div>
 					<div class="movie-second-row">
 						<p>${movie.Runtime}</p>
 						<p>${movie.Genre}</p>
-						<div class="add-btn align-right">
-							<img class="icon" src="./img/add-icon-large.png" data-imdb-id="${movie.imdbID}"/>
+						<div class="add-btn">
+							<img class="icon" src="./img/add-icon.png" data-imdb-id="${movie.imdbID}"/>
 							<p data-imdb-id="${movie.imdbID}">Watchlist</p>
 						</div>
 					</div>
@@ -86,6 +72,5 @@ function renderMovie(movie, isSearch) {
 			<hr/>
 		</li>
 		`
-
 	document.getElementById('movie-list').innerHTML += html
 }
