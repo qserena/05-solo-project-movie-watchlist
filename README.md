@@ -17,4 +17,4 @@ This app has two pages:
 The app is deployed here:
 [https://toms-movie-watchlist.netlify.app](https://toms-movie-watchlist.netlify.app)
 
-Please feel free to visit and try the Color Scheme Generator!
+Please feel free to visit and try the Movie Watchlist!
