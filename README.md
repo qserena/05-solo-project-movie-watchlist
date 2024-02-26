@@ -2,7 +2,7 @@
 
 ## Description
 This app has two pages: 
-- One search page which fetches movies from the [Open Movie Database API](https://www.omdbapi.com). For each search result item you could add the movie in question to the Watchlist. The movie is then saved to localstorage.
+- One search page which fetches movies from [The Open Movie Database API](https://www.omdbapi.com). For each search result item you could add the movie in question to the Watchlist. The movie is then saved to localstorage.
 - One Watchlist page where your saved movies are read from localstorage, and listed on the page.
 <br/>
 <br/>
