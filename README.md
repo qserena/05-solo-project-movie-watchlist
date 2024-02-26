@@ -1,7 +1,9 @@
 # Movie Watchlist
 
 ## Description
-This Color Scheme Generator calls the Open Source [Color API](https://www.thecolorapi.com) and fetches a number of related colors, depending of the inputs set by the color control at the left, and the dropdown control in the middle.
+This app has two pages: 
+- One search page which fetches movies from the [Open Movie Database API](https://www.omdbapi.com)
+- One Watchlist page where your saved movies are listed.
 <br/>
 <br/>
 <img src="movie-watchlist.png" alt="Screenshot." width="400px"/>
