@@ -13,6 +13,6 @@ This Color Scheme Generator calls the Open Source [Color API](https://www.thecol
 
 ## Live link
 The app is deployed here:
-[https://toms-movie-watchlist.netlify.app](https://movie-watchlist.netlify.app)
+[https://toms-movie-watchlist.netlify.app](https://toms-movie-watchlist.netlify.app)
 
 Please feel free to visit and try the Color Scheme Generator!
